@@ -455,18 +455,6 @@ Last revised: April 17, 2003
       which provides commands for changing all of these.
 
 
-    set die-on-sighup 0
-      Enable this setting if you want your Eggdrop to die upon receiving a
-      SIGHUP kill signal. Otherwise, the Eggdrop will just save its userfile
-      and rehash.
-
-
-    set die-on-sigterm 0
-      Enable this setting if you want your Eggdrop to die upon receiving a
-      SIGTERM kill signal. Otherwise, the Eggdrop will just save its userfile
-      and rehash.
-
-
     unbind dcc n tcl *dcc:tcl
     unbind dcc n set *dcc:set
       Comment these two lines if you wish to enable the .tcl and .set commands.

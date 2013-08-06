@@ -1562,10 +1562,11 @@ char *str_dup(const char *s)
  */
 void kill_bot(char *s1, char *s2)
 {
+  check_tcl_die(s2);
   call_hook(HOOK_DIE);
   chatout("*** %s\n", s1);
   botnet_send_chat(-1, botnetnick, s1);
   botnet_send_bye();
   write_userfile(-1);
-  fatal(s2, 0);
+  fatal(s2, 2);
 }

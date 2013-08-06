@@ -6,6 +6,13 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Modified SIGQUIT handler to restart the bot by default.
+  - Added support for evnt bind procs to cancel default signal actions.
+  - Removed the die-on-sighup and die-on-sigterm variables.
+  - Added a new bind type DIE triggered before a clean shutdown.
+  - Changed the exit status on clean shutdown to 0.
+    Patch by: pseudo
+
   - Added the process and parent pids to .status output. Increased the
     precision of cpu time reporting.
   - Added a new Tcl command 'status' to provide access to cpu/memory/cache

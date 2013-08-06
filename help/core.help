@@ -182,8 +182,6 @@ quick-logs
 logfile-suffix
 quiet-save
 sort-users
-die-on-sighup
-die-on-sigterm
 remote-boots
 max-socks
 max-logs

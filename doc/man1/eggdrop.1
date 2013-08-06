@@ -98,12 +98,16 @@ This signal is ignored by Eggdrop and can be used to determine whether it's
 running or not.
 .TP
 .B SIGTERM
-Depending on die-on-sigterm being set to 0 or 1 in the config file,
-Eggdrop will save its user and channel file and/or die.
+By default Eggdrop will save its user and channel file and die. A script can
+override the default handler by registering with the EVNT bind and returning 1.
 .TP
 .B SIGHUP
-Depending on die-on-sighup being set to 0 or 1 in the config file,
-Eggdrop will rehash (reload its config file) or die.
+By default Eggdrop will rehash (reload its config file). A script can override
+the default handler by registering with the EVNT bind and returning 1.
+.TP
+.B SIGQUIT
+By default Eggdrop will restart. A script can override the default handler by
+registering with the EVNT bind and returning 1.
 .SH "ENVIRONMENT VARIABLES"
 .TP
 .B EGG_LANG
