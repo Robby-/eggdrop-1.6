@@ -147,7 +147,6 @@ Baue eine Telnetverbindung zu dem Bot auf und gib 'NEW' als Deinen Nickname ein.
 0x600,gebannt
 0x601,Du bist gebannt
 0x602,Wollte mich selbst bannen -- gerade noch abgewendet.
-0x603,das war ein Spass, machen wir's doch nochmal!
 0x604,Hallo
 0x605,Auf Wiedersehen
 0x606,Du bist gebannt, mein Lieber.

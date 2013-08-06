@@ -140,7 +140,6 @@ Telnet to the bot and enter 'NEW' as your nickname.
 0x600,Banned
 0x601,You are banned
 0x602,Wanted to ban myself--deflected.
-0x603,that was fun, let's do it again!
 0x604,Hi
 0x605,Goodbye
 0x606,You're banned, goober.

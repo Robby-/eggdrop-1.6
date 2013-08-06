@@ -224,11 +224,6 @@ Last revised: April 17, 2003
       specified, pid.(botnet-nick) will be used.
 
 
-    set sort-users 0
-      If you want your userfile to be sorted upon saving, enable this setting.
-      This causes the bot to use a bit more CPU when saving the userfile.
-
-
     set help-path "help/"
       Specify here where Eggdrop should look for help files. Don't modify this
       setting unless you know what you're doing!

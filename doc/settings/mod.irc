@@ -71,18 +71,6 @@ Last revised: August 21, 2004
       +e/+I modes then you will be unable to use these features.
 
 
-    set kick-fun 0
-      Set this to 1 if you want the bot to kick for control character/ctcp
-      avalanches to a channel. Remember that if it does, it won't ban them.
-      This can start kick floods.
-
-
-    set ban-fun 0
-      Set this to 1 if you want the bot to ban for control character/ctcp
-      avalanches to a channel. This can prevent kick floods, but it also can
-      fill the banlist.
-
-
     set learn-users 0
       If you want people to be able to add themselves to the bot's userlist
       with the default userflags (defined above in the config file) via the

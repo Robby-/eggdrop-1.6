@@ -130,7 +130,6 @@
 #define IRC_BANNED              get_language(0x600)
 #define IRC_YOUREBANNED         get_language(0x601)
 #define IRC_IBANNEDME           get_language(0x602)
-#define IRC_FUNKICK             get_language(0x603)
 #define IRC_HI                  get_language(0x604)
 #define IRC_GOODBYE             get_language(0x605)
 #define IRC_BANNED2             get_language(0x606)

@@ -58,8 +58,8 @@ extern int flood_telnet_thr, flood_telnet_time, shtime, share_greet,
            ignore_time, reserved_port_min, reserved_port_max, max_logs,
            max_logsize, dcc_total, raw_log, identtimeout, dcc_sanitycheck,
            dupwait_timeout, egg_numver, share_unlinks, protect_telnet,
-           sort_users, strict_host, resolve_timeout, default_uflags,
-           userfile_perm, cidr_support;
+           strict_host, resolve_timeout, default_uflags, userfile_perm,
+           cidr_support;
 
 extern struct dcc_t *dcc;
 extern tcl_timer_t *timer, *utimer;
@@ -533,7 +533,6 @@ static tcl_ints def_tcl_ints[] = {
   {"raw-log",               &raw_log,              1},
   {"protect-telnet",        &protect_telnet,       0},
   {"dcc-sanitycheck",       &dcc_sanitycheck,      0},
-  {"sort-users",            &sort_users,           0},
   {"ident-timeout",         &identtimeout,         0},
   {"share-unlinks",         &share_unlinks,        0},
   {"log-time",              &shtime,               0},

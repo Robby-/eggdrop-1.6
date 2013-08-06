@@ -6,6 +6,14 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Removed IRC_FUNKICK.
+    Patch by: pseudo
+
+  - Removed the never-give-up, sort-users and kick-fun/ban-fun variables.
+    Sorting users shouldn't be a challenge for CPUs nowadays. The rest are
+    rarely used and can be scripted.
+    Patch by: guppy
+
   - Modified SIGQUIT handler to restart the bot by default.
   - Added support for evnt bind procs to cancel default signal actions.
   - Removed the die-on-sighup and die-on-sigterm variables.

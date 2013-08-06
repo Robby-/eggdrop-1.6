@@ -47,7 +47,7 @@
 /* 16 - 19 */
 #define trigger_on_ignore (*(int *)(server_funcs[16]))
 #define check_tcl_ctcpr ((int(*)(char*,char*,struct userrec*,char*,char*,char*,p_tcl_bind_list))server_funcs[17])
-#define detect_avalanche ((int(*)(char *))server_funcs[18])
+/* Was detect_avalanche */
 #define nuke_server ((void(*)(char *))server_funcs[19])
 /* 20 - 23 */
 #define newserver ((char *)(server_funcs[20]))

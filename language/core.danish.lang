@@ -140,7 +140,6 @@ Telnet botten og skriv 'NEW' som dit nick.\n
 0x600,Banned
 0x601,Du er banned
 0x602,Ville banne mig selv--afviger.
-0x603,det var sjovt, lad os gøre det igen!
 0x604,Hej
 0x605,Farveller
 0x606,Du er banned.
