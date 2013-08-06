@@ -36,17 +36,17 @@
  *
  *
  */
-patch("CVS");                   /* CVS version */
+patch("Git");                   /* Git version */
 /*
  *
  *
  */
-patch("1319561053");            /* current unixtime */
+patch("1375769276");            /* current unixtime */
 /*
  *
  *
  */
-patch("nicklentrace");
+patch("robbysfork");            /* indicate forked version */
 /*
  *
  *
