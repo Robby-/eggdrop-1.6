@@ -291,7 +291,7 @@ void tell_verbose_status(int idx)
 #ifdef HAVE_UNAME
   struct utsname un;
 
-  if (!uname(&un) < 0) {
+  if (uname(&un) < 0) {
 #endif
     vers_t = " ";
     uni_t  = "*unknown*";

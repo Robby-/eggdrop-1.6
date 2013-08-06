@@ -3695,7 +3695,7 @@
         </dd>
 
 
-        <dt><strong><a name="cmd_status"></a>status [type]</strong></dt>*
+        <dt><strong><a name="cmd_status"></a>status [type]</strong></dt>
         <dd>
           <p><strong>Description:</strong> provides eggdrop status
           information similar to the .status command in partyline. The
@@ -4916,6 +4916,21 @@
               level(s) the message is sent to, or '*' if the message is sent
               to all log levels at once. If the message wasn't sent to a
               specific channel, channel will be set to '*'.</p>
+
+              <p><strong>Module:</strong> core</p>
+            </li>
+
+            <li>
+              <p><a name="binda_die"></a><strong>DIE (stackable)</strong></p>*
+
+              <p><strong>bind die &lt;flags&gt; &lt;mask&gt; &lt;proc&gt;<br>
+              proc-name &lt;shutdownreason&gt;</strong>
+              </p>
+
+              <p><strong>Description:</strong> triggered when eggdrop is
+              about to die. The mask is matched against the shutdown reason.
+              The bind won't be triggered if the bot crashes or is being
+              terminated by SIGKILL.</p>
 
               <p><strong>Module:</strong> core</p>
             </li>

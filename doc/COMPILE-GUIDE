@@ -79,6 +79,10 @@ Last revised: October 02, 2011
              See 'I. Tcl Detection and Installation' below (at the end of this
              compile guide).
 
+           --with-handlen=
+             Configure the handle length of the bot. Allowed values are
+             numbers from 9 to 32 inclusive.
+
       2. Type either 'make config', or 'make iconfig' to determine which
          modules will be compiled.
 

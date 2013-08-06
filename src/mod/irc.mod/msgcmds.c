@@ -795,7 +795,7 @@ static int msg_status(char *nick, char *host, struct userrec *u, char *par)
 #ifdef HAVE_UNAME
   struct utsname un;
 
-  if (!uname(&un) < 0) {
+  if (uname(&un) < 0) {
 #endif
     vers_t = " ";
     uni_t  = "*unknown*";

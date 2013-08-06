@@ -337,8 +337,8 @@ Last revised: April 17, 2003
 
 
     set ident-timeout 5
-      This settings defines a time in seconds that the bot should wait before
-      a dcc chat, telnet, or relay connection times out.
+      This setting defines the time in seconds the bot should wait for ident reply
+      before the lookup fails. The default ident on timeout is 'telnet'.
 
 
     set require-p 0
@@ -364,7 +364,7 @@ Last revised: April 17, 2003
 
 
     set connect-timeout 15
-      This settings defines a time in seconds that the bot should wait before
+      This setting defines a time in seconds that the bot should wait before
       a dcc chat, telnet, or relay connection times out.
 
 

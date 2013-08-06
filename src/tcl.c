@@ -87,10 +87,6 @@ int handlen = HANDLEN;
 int utftot = 0;
 int clientdata_stuff = 0;
 
-/* Compatability for removed settings.*/
-int strict_servernames = 0, enable_simul = 1, use_console_r = 0,
-    debug_output = 0;
-
 #ifdef REPLACE_NOTIFIER
 tclevent_t *tclevents = NULL; /* Queue of Tcl snippets to execute */
 #endif
@@ -550,10 +546,6 @@ static tcl_ints def_tcl_ints[] = {
   {"copy-to-tmp",           &copy_to_tmp,          0},
   {"quiet-reject",          &quiet_reject,         0},
   {"cidr-support",          &cidr_support,         0},
-  {"strict-servernames",    &strict_servernames,   0}, /* compat */
-  {"enable-simul",          &enable_simul,         0}, /* compat */
-  {"debug-output",          &debug_output,         0}, /* compat */
-  {"use-console-r",         &use_console_r,        0}, /* compat */
   {NULL,                    NULL,                  0}
 };
 

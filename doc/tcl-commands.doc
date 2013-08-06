@@ -1512,7 +1512,7 @@ marked with vertical bars (|) on the left.
     Returns: nothing
     Module: core
 
- traffic
+  traffic
     Returns: a list of sublists containing information about the bot's
       traffic usage in bytes. Each sublist contains five elements: type,
       in-traffic today, in-traffic total, out-traffic today, out-traffic
