@@ -256,14 +256,19 @@ static int tcl_timer STDVAR
   unsigned long x;
   char s[16];
 
-  BADARGS(3, 3, " minutes command");
+  BADARGS(3, 4, " minutes command ?count?");
 
   if (atoi(argv[1]) < 0) {
     Tcl_AppendResult(irp, "time value must be positive", NULL);
     return TCL_ERROR;
   }
+  if (argc == 4 && atoi(argv[3]) < 0) {
+    Tcl_AppendResult(irp, "count value must be >= 0", NULL);
+    return TCL_ERROR;
+  }
   if (argv[2][0] != '#') {
-    x = add_timer(&timer, atoi(argv[1]), argv[2], 0L);
+    x = add_timer(&timer, atoi(argv[1]), (argc == 4 ? atoi(argv[3]) : 1),
+                  argv[2], 0L);
     egg_snprintf(s, sizeof s, "timer%lu", x);
     Tcl_AppendResult(irp, s, NULL);
   }
@@ -275,14 +280,19 @@ static int tcl_utimer STDVAR
   unsigned long x;
   char s[16];
 
-  BADARGS(3, 3, " seconds command");
+  BADARGS(3, 4, " seconds command ?count?");
 
   if (atoi(argv[1]) < 0) {
     Tcl_AppendResult(irp, "time value must be positive", NULL);
     return TCL_ERROR;
   }
+  if (argc == 4 && atoi(argv[3]) < 0) {
+    Tcl_AppendResult(irp, "count value must be >= 0", NULL);
+    return TCL_ERROR;
+  }
   if (argv[2][0] != '#') {
-    x = add_timer(&utimer, atoi(argv[1]), argv[2], 0L);
+    x = add_timer(&utimer, atoi(argv[1]), (argc == 4 ? atoi(argv[3]) : 1),
+                  argv[2], 0L);
     egg_snprintf(s, sizeof s, "timer%lu", x);
     Tcl_AppendResult(irp, s, NULL);
   }

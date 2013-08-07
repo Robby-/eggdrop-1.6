@@ -101,7 +101,9 @@
  */
 typedef struct timer_str {
   struct timer_str *next;
-  unsigned int mins;            /* Time to elapse                       */
+  unsigned int mins;            /* Time remaining                       */
+  unsigned int count;           /* Number of repeats                    */
+  unsigned int interval;        /* Time to elapse                       */
   char *cmd;                    /* Command linked to                    */
   unsigned long id;             /* Used to remove timers                */
 } tcl_timer_t;
@@ -151,7 +153,7 @@ typedef struct tclevent {
         }                                                               \
 } while (0)
 
-unsigned long add_timer(tcl_timer_t **, int, char *, unsigned long);
+unsigned long add_timer(tcl_timer_t **, int, int, char *, unsigned long);
 int remove_timer(tcl_timer_t **, unsigned long);
 void list_timers(Tcl_Interp *, tcl_timer_t *);
 void wipe_timers(Tcl_Interp *, tcl_timer_t **);
