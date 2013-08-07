@@ -6,6 +6,12 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Modified tcl_channel_get to return a flat list of all channel settings
+    and their values when called without a setting argument.
+  - Added two new Tcl commands: [chansettype] returning setting types and
+    [getudefs] listing user defined channel settings.
+    Patch by: pseudo
+
   - Added optional count argument to Tcl timer and utimer to allow them run
     more than once.
     Patch by: pseudo

@@ -1233,12 +1233,13 @@
           <p><strong>Module:</strong> channels</p>
         </dd>
 
-        <dt><strong><a name="cmd_channel_get"></a>channel get &lt;name&gt; &lt;setting&gt;</strong></dt>
+        <dt><strong><a name="cmd_channel_get"></a>channel get &lt;name&gt; [setting]</strong></dt>
 
         <dd>
           <p><strong>Returns:</strong> The value of the setting you specify.
           For flags, a value of 0 means it is disabled (-), and non-zero means
-          enabled (+).</p>
+          enabled (+). If no setting is specified, a flat list of all available
+          settings and their values will be returned.</p>
 
           <p><strong>Module:</strong> channels</p>
         </dd>
@@ -1852,6 +1853,24 @@
           flag, string, or integer setting.</p>
 
           <p><strong>Returns:</strong> nothing</p>
+
+          <p><strong>Module:</strong> channels</p>
+        </dd>
+
+        <dt><strong><a name="cmd_getudefs"></a>getudefs &lt;flag/int/str&gt;</strong></dt>
+
+        <dd>
+          <p><strong>Returns:</strong> a list of user defined channel
+          settings of the given type, or all of them if no type is given.</p>
+
+          <p><strong>Module:</strong> channels</p>
+        </dd>
+
+        <dt><strong><a name="cmd_chansettype"></a>chansettype &lt;setting&gt;</strong></dt>
+
+        <dd>
+          <p><strong>Returns:</strong> The value of the setting you specify.
+          The possible types are flag, int, str, pair.</p>
 
           <p><strong>Module:</strong> channels</p>
         </dd>
