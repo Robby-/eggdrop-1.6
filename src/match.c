@@ -332,7 +332,7 @@ int cidr_match(char *m, char *n, int count)
   u_8bit_t block[16], addr[16];
 
   if (count < 1)
-    return NOMATCH;
+    return 1;
   if (strchr(m, ':') || strchr(n, ':')) {
     af = AF_INET6;
     if (count > 128)
@@ -353,7 +353,9 @@ int cidr_match(char *m, char *n, int count)
 #else
   IP block, addr;
 
-  if (count < 1 || count > 32)
+  if (count < 1)
+    return 1;
+  if (count > 32)
     return NOMATCH;
   block = ntohl(inet_addr(m));
   addr = ntohl(inet_addr(n));

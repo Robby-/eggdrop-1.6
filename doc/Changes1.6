@@ -6,6 +6,9 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Fix match_cidr to always return MATCH if the prefix is 0.
+    Patch by: thommey / Found by: Robby
+
   - Export the tcl_result* functions to modules. They're required because
     access to interp->result will be removed from Tcl.
     Patch by: thommey / Found by: Nocty
