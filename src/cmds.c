@@ -1207,7 +1207,7 @@ static void cmd_backup(struct userrec *u, int idx, char *par)
 static void cmd_trace(struct userrec *u, int idx, char *par)
 {
   int i;
-  char x[NOTENAMELEN + 11], y[11];
+  char x[NOTENAMELEN + 11], y[12];
 
   if (!par[0]) {
     dprintf(idx, "Usage: trace <botname>\n");
