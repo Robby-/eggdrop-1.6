@@ -1900,19 +1900,22 @@ int stripmodes(char *s)
       res |= STRIP_COLOR;
       break;
     case 'r':
-      res |= STRIP_REV;
+      res |= STRIP_REVERSE;
       break;
     case 'u':
-      res |= STRIP_UNDER;
+      res |= STRIP_UNDERLINE;
+      break;
+    case 'i':
+      res |= STRIP_ITALICS;
+      break;
+    case 'o':
+      res |= STRIP_ORDINARY;
       break;
     case 'a':
       res |= STRIP_ANSI;
       break;
     case 'g':
       res |= STRIP_BELLS;
-      break;
-    case 'o':
-      res |= STRIP_RESET;
       break;
     case '*':
       res |= STRIP_ALL;
@@ -1930,16 +1933,18 @@ char *stripmasktype(int x)
     *p++ = 'b';
   if (x & STRIP_COLOR)
     *p++ = 'c';
-  if (x & STRIP_REV)
+  if (x & STRIP_REVERSE)
     *p++ = 'r';
-  if (x & STRIP_UNDER)
+  if (x & STRIP_ITALICS)
+    *p++ = 'i';
+  if (x & STRIP_ORDINARY)
+    *p++ = 'o';
+  if (x & STRIP_UNDERLINE)
     *p++ = 'u';
   if (x & STRIP_ANSI)
     *p++ = 'a';
   if (x & STRIP_BELLS)
     *p++ = 'g';
-  if (x & STRIP_RESET)
-    *p++ = 'o';
   if (p == s)
     *p++ = '-';
   *p = 0;
@@ -1956,16 +1961,18 @@ static char *stripmaskname(int x)
     i += my_strcpy(s + i, "bold, ");
   if (x & STRIP_COLOR)
     i += my_strcpy(s + i, "color, ");
-  if (x & STRIP_REV)
+  if (x & STRIP_REVERSE)
     i += my_strcpy(s + i, "reverse, ");
-  if (x & STRIP_UNDER)
+  if (x & STRIP_UNDERLINE)
     i += my_strcpy(s + i, "underline, ");
+  if (x & STRIP_ITALICS)
+    i += my_strcpy(s + i, "italics, ");
+  if (x & STRIP_ORDINARY)
+    i += my_strcpy(s + i, "ordinary, ");
   if (x & STRIP_ANSI)
     i += my_strcpy(s + i, "ansi, ");
   if (x & STRIP_BELLS)
     i += my_strcpy(s + i, "bells, ");
-  if (x & STRIP_RESET)
-    i += my_strcpy(s + i, "reset, ");
   if (!i)
     strcpy(s, "none");
   else

@@ -760,20 +760,26 @@ void strip_mirc_codes(int flags, char *text)
         continue;
       }
       break;
-    case 017:                  /* Reset all control chars (mIRC ctrl+o) */
-      if (flags & STRIP_RESET) {
+    case 017:                  /* Ordinary (mIRC ctrl+o) */
+      if (flags & STRIP_ORDINARY) {
         text++;
         continue;
       }
       break;
     case 0x16:                 /* Reverse video */
-      if (flags & STRIP_REV) {
+      if (flags & STRIP_REVERSE) {
+        text++;
+        continue;
+      }
+      break;
+    case 29:                   /* Italics */
+      if (flags & STRIP_ITALICS) {
         text++;
         continue;
       }
       break;
     case 0x1f:                 /* Underlined text */
-      if (flags & STRIP_UNDER) {
+      if (flags & STRIP_UNDERLINE) {
         text++;
         continue;
       }

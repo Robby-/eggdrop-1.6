@@ -672,17 +672,20 @@ static int tcl_stripcodes STDVAR
     case 'c':
       flags |= STRIP_COLOR;
       break;
+    case 'o':
+      flags |= STRIP_ORDINARY;
+      break;
+    case 'i':
+      flags |= STRIP_ITALICS;
+      break;
     case 'g':
       flags |= STRIP_BELLS;
       break;
     case 'r':
-      flags |= STRIP_REV;
+      flags |= STRIP_REVERSE;
       break;
     case 'u':
-      flags |= STRIP_UNDER;
-      break;
-    case 'o':
-      flags |= STRIP_RESET;
+      flags |= STRIP_UNDERLINE;
       break;
     case '*':
       flags |= STRIP_ALL;
