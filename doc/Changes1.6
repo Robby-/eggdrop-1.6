@@ -6,6 +6,9 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Fixed a bug in (u)timers which could lead to invalid memory access.
+    Found by: dr1 / Patch by: thommey
+
   - Modified tcl_channel_get to return a flat list of all channel settings
     and their values when called without a setting argument.
   - Added two new Tcl commands: [chansettype] returning setting types and

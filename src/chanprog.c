@@ -672,7 +672,7 @@ void list_timers(Tcl_Interp *irp, tcl_timer_t *stack)
     argv[1] = mark->cmd;
     argv[2] = id;
     argv[3] = count;
-    x = Tcl_Merge(sizeof *argv, argv);
+    x = Tcl_Merge(sizeof(argv)/sizeof(*argv), argv);
     Tcl_AppendElement(irp, x);
     Tcl_Free((char *) x);
   }
