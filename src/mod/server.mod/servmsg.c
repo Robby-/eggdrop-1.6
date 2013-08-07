@@ -1056,6 +1056,7 @@ static void timeout_server(int idx)
 {
   putlog(LOG_SERV, "*", "Timeout: connect to %s", dcc[idx].host);
   disconnect_server(idx);
+  check_tcl_event("fail-server");
   lostdcc(idx);
 }
 
@@ -1297,6 +1298,7 @@ static void server_resolve_failure(int servidx)
   resolvserv = 0;
   putlog(LOG_SERV, "*", "%s %s (%s)", IRC_FAILEDCONNECT, dcc[servidx].host,
          IRC_DNSFAILED);
+  check_tcl_event("fail-server");
   lostdcc(servidx);
 }
 
@@ -1313,6 +1315,7 @@ static void server_resolve_success(int servidx)
     neterror(s);
     putlog(LOG_SERV, "*", "%s %s (%s)", IRC_FAILEDCONNECT, dcc[servidx].host,
            s);
+    check_tcl_event("fail-server");
     lostdcc(servidx);
   } else {
     dcc[servidx].sock = serv;
