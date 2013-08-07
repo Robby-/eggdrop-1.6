@@ -6,6 +6,10 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Export the tcl_result* functions to modules. They're required because
+    access to interp->result will be removed from Tcl.
+    Patch by: thommey / Found by: Nocty
+
   - Clarify documentation of mask matching in bind notc.
     Patch by: Pixelz
 

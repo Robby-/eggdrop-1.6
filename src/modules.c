@@ -577,7 +577,11 @@ Function global_table[] = {
   (Function) check_conflags,
   (Function) increase_socks_max,
   (Function) log_ts,
-  (Function) mod_strdup
+  (Function) mod_strdup,
+  /* 300 - 303 */
+  (Function) tcl_resultempty,
+  (Function) tcl_resultint,
+  (Function) tcl_resultstring
 };
 
 void init_modules(void)
