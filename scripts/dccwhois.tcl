@@ -19,7 +19,7 @@
 ##
 ###############################################################################
 ##
-## $Id: dccwhois.tcl,v 1.1 2009/01/22 03:12:45 tothwolf Exp $
+## $Id: dccwhois.tcl,v 1.2 2012/12/19 22:30:43 thommey Exp $
 ##
 ###############################################################################
 ##
@@ -84,8 +84,7 @@ if {([info exists numversion]) &&
 proc dcc:whois {hand idx arg} {
   global dccwhois_flags
 
-  set arg [split [string trimright $arg]]
-  set who [lindex $arg 0]
+  set who [lindex [split $arg] 0]
 
   # Did user gave a handle other than their own?
   if {([string compare "" $who]) &&
