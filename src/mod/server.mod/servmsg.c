@@ -1326,6 +1326,7 @@ static void server_resolve_success(int servidx)
     strcpy(botname, origbotname);
     /* Start alternate nicks from the beginning */
     altnick_char = 0;
+    check_tcl_event("preinit-server");
     if (pass[0])
       dprintf(DP_MODE, "PASS %s\n", pass);
     dprintf(DP_MODE, "NICK %s\n", botname);
