@@ -2466,6 +2466,10 @@ static void cmd_mns_user(struct userrec *u, int idx, char *par)
     dprintf(idx, "You can't remove a bot owner!\n");
     return;
   }
+  if ((u2->flags & USER_MASTER) && !(u->flags & USER_OWNER)) {
+    dprintf(idx, "Only owners can remove a master!\n");
+    return;
+  }
   if (u2->flags & USER_BOT) {
     if ((bot_flags(u2) & BOT_SHARE) && !(u->flags & USER_OWNER)) {
       dprintf(idx, "You can't remove share bots.\n");
