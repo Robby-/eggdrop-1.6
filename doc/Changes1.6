@@ -6,6 +6,9 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Make sure match_cidr returns NOMATCH if address families mismatch.
+    Patch by: Robby
+
   - Fix match_cidr to always return MATCH if the prefix is 0.
     Patch by: thommey / Found by: Robby
 
