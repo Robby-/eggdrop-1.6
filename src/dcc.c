@@ -1779,6 +1779,7 @@ static int call_tcl_func(char *name, int idx, char *args)
   Tcl_SetVar(interp, "_a", args, 0);
   if (Tcl_VarEval(interp, name, " $_n $_a", NULL) == TCL_ERROR) {
     putlog(LOG_MISC, "*", DCC_TCLERROR, name, tcl_resultstring());
+    Tcl_BackgroundError(interp);
     return -1;
   }
   return tcl_resultint();

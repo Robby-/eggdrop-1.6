@@ -240,8 +240,10 @@ void dcc_dnshostbyip(IP ip)
 /* Called after a dns callback has been executed, displays errors */
 void dnstclcallback(char *context, char *script, int code,
                     const char *result, int dofree) {
-  if (code == TCL_ERROR)
+  if (code == TCL_ERROR) {
     putlog(LOG_MISC, "*", DCC_TCLERROR, context, result);
+    Tcl_BackgroundError(interp);
+  }
   if (dofree) {
     nfree(context);
     nfree(script);

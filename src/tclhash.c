@@ -724,6 +724,7 @@ static inline int trigger_bind(const char *proc, const char *param,
   if (x == TCL_ERROR) {
     /* FIXME: we really should be able to log longer errors */
     putlog(LOG_MISC, "*", "Tcl error [%s]: %.*s", proc, 400, tcl_resultstring());
+    Tcl_BackgroundError(interp);
 
     return BIND_EXECUTED;
   }

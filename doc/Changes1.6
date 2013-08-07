@@ -6,6 +6,10 @@ Eggdrop Changes (since version 1.6.0)
 
 1.6.22 (Git)
 
+  - Call Tcl's bgerror on Eggdrop background errors. This allows custom
+    code to react to errors (and output full $::errorInfo, for example).
+    Patch by: thommey
+
   - Remove wrong truncation of ERR_YOUREBANNEDCREEP output to console.
     Found by: Edelstahl / Patch by: thommey
 

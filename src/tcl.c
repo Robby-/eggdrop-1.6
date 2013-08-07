@@ -583,6 +583,7 @@ void bgtclcallback(char *context, char *script, int code,
 #endif
     putlog(LOG_MISC, "*", "Tcl error in script for '%s':", context);
     putlog(LOG_MISC, "*", "%s", result);
+    Tcl_BackgroundError(interp);
 #ifdef USE_TCL_ENCODING
   Tcl_DStringFree(&dstr);
 #endif
@@ -943,6 +944,7 @@ int readtclprog(char *fname)
   if (code != TCL_OK) {
     putlog(LOG_MISC, "*", "Tcl error in file '%s':", fname);
     putlog(LOG_MISC, "*", "%s", result);
+    Tcl_BackgroundError(interp);
     code = 0; /* JJM: refactored to remove premature return */
   } else {
     /* Refresh internal variables */
