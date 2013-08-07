@@ -1893,11 +1893,11 @@ int stripmodes(char *s)
 
   for (; *s; s++)
     switch (tolower((unsigned) *s)) {
-    case 'b':
-      res |= STRIP_BOLD;
-      break;
     case 'c':
       res |= STRIP_COLOR;
+      break;
+    case 'b':
+      res |= STRIP_BOLD;
       break;
     case 'r':
       res |= STRIP_REVERSE;
@@ -1905,17 +1905,17 @@ int stripmodes(char *s)
     case 'u':
       res |= STRIP_UNDERLINE;
       break;
-    case 'i':
-      res |= STRIP_ITALICS;
-      break;
-    case 'o':
-      res |= STRIP_ORDINARY;
-      break;
     case 'a':
       res |= STRIP_ANSI;
       break;
     case 'g':
       res |= STRIP_BELLS;
+      break;
+    case 'o':
+      res |= STRIP_ORDINARY;
+      break;
+    case 'i':
+      res |= STRIP_ITALICS;
       break;
     case '*':
       res |= STRIP_ALL;
@@ -1929,22 +1929,22 @@ char *stripmasktype(int x)
   static char s[20];
   char *p = s;
 
-  if (x & STRIP_BOLD)
-    *p++ = 'b';
   if (x & STRIP_COLOR)
     *p++ = 'c';
+  if (x & STRIP_BOLD)
+    *p++ = 'b';
   if (x & STRIP_REVERSE)
     *p++ = 'r';
-  if (x & STRIP_ITALICS)
-    *p++ = 'i';
-  if (x & STRIP_ORDINARY)
-    *p++ = 'o';
   if (x & STRIP_UNDERLINE)
     *p++ = 'u';
   if (x & STRIP_ANSI)
     *p++ = 'a';
   if (x & STRIP_BELLS)
     *p++ = 'g';
+  if (x & STRIP_ORDINARY)
+    *p++ = 'o';
+  if (x & STRIP_ITALICS)
+    *p++ = 'i';
   if (p == s)
     *p++ = '-';
   *p = 0;
@@ -1957,22 +1957,22 @@ static char *stripmaskname(int x)
   int i = 0;
 
   s[i] = 0;
-  if (x & STRIP_BOLD)
-    i += my_strcpy(s + i, "bold, ");
   if (x & STRIP_COLOR)
     i += my_strcpy(s + i, "color, ");
+  if (x & STRIP_BOLD)
+    i += my_strcpy(s + i, "bold, ");
   if (x & STRIP_REVERSE)
     i += my_strcpy(s + i, "reverse, ");
   if (x & STRIP_UNDERLINE)
     i += my_strcpy(s + i, "underline, ");
-  if (x & STRIP_ITALICS)
-    i += my_strcpy(s + i, "italics, ");
-  if (x & STRIP_ORDINARY)
-    i += my_strcpy(s + i, "ordinary, ");
   if (x & STRIP_ANSI)
     i += my_strcpy(s + i, "ansi, ");
   if (x & STRIP_BELLS)
     i += my_strcpy(s + i, "bells, ");
+  if (x & STRIP_ORDINARY)
+    i += my_strcpy(s + i, "ordinary, ");
+  if (x & STRIP_ITALICS)
+    i += my_strcpy(s + i, "italics, ");
   if (!i)
     strcpy(s, "none");
   else

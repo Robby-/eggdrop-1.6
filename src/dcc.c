@@ -731,12 +731,6 @@ void strip_mirc_codes(int flags, char *text)
 
   while (*text) {
     switch (*text) {
-    case 2:                    /* Bold text */
-      if (flags & STRIP_BOLD) {
-        text++;
-        continue;
-      }
-      break;
     case 3:                    /* mIRC colors? */
       if (flags & STRIP_COLOR) {
         if (egg_isdigit(text[1])) { /* Is the first char a number? */
@@ -754,26 +748,14 @@ void strip_mirc_codes(int flags, char *text)
         continue;
       }
       break;
-    case 7:
-      if (flags & STRIP_BELLS) {
-        text++;
-        continue;
-      }
-      break;
-    case 017:                  /* Ordinary (mIRC ctrl+o) */
-      if (flags & STRIP_ORDINARY) {
+    case 2:                    /* Bold text */
+      if (flags & STRIP_BOLD) {
         text++;
         continue;
       }
       break;
     case 0x16:                 /* Reverse video */
       if (flags & STRIP_REVERSE) {
-        text++;
-        continue;
-      }
-      break;
-    case 29:                   /* Italics */
-      if (flags & STRIP_ITALICS) {
         text++;
         continue;
       }
@@ -794,6 +776,24 @@ void strip_mirc_codes(int flags, char *text)
           if (*text)
             text++;             /* also kill the following char */
         }
+        continue;
+      }
+      break;
+    case 7:
+      if (flags & STRIP_BELLS) {
+        text++;
+        continue;
+      }
+      break;
+    case 017:                  /* Ordinary (mIRC ctrl+o) */
+      if (flags & STRIP_ORDINARY) {
+        text++;
+        continue;
+      }
+      break;
+    case 29:                   /* Italics */
+      if (flags & STRIP_ITALICS) {
+        text++;
         continue;
       }
       break;

@@ -954,12 +954,15 @@ marked with vertical bars (|) on the left.
   strip <idx> [+/-strip-flags]
     Description: modifies the strip-flags for a user. The supported
       strip-flags are:
-        b - remove all boldface codes
         c - remove all color codes
+        b - remove all boldface codes
         r - remove all reverse video codes
         u - remove all underline codes
         a - remove all ANSI codes
         g - remove all ctrl-g (bell) codes
+        o - remove all ordinary codes (ctrl+o, terminates bold/color/..)
+        i - remove all italics codes
+        * - remove all of the above
     Returns: new strip-flags for the specified user (or the current
       flags, if strip-flags was omitted)
     Module: core
@@ -1585,8 +1588,8 @@ marked with vertical bars (|) on the left.
   stripcodes <strip-flags> <string>
     Description: strips specified control characters from the string given.
       strip-flags can be any combination of the following:
-        b - remove all boldface codes
         c - remove all color codes
+        b - remove all boldface codes
         r - remove all reverse video codes
         u - remove all underline codes
         a - remove all ANSI codes
