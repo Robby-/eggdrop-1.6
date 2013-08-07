@@ -1176,7 +1176,7 @@ static void dcc_telnet_hostresolved(int i)
 {
   int idx;
   int j = 0, sock;
-  char s[UHOSTLEN], s2[UHOSTLEN + 20];
+  char s[UHOSTLEN], s2[UHOSTLEN + 20], *userhost;
 
   strncpyz(dcc[i].host, dcc[i].u.dns->host, UHOSTLEN);
 
@@ -1202,9 +1202,20 @@ static void dcc_telnet_hostresolved(int i)
     }
   }
   sprintf(s2, "-telnet!telnet@%s", dcc[i].host);
+  userhost = s2 + strlen("-telnet!");
   if (match_ignore(s2) || detect_telnet_flood(s2)) {
     killsock(dcc[i].sock);
     lostdcc(i);
+    return;
+  }
+
+  /* Skip ident lookup for public script listeners */
+  if ((dcc[idx].status & LSTN_PUBLIC) && !strcmp(dcc[idx].nick, "(script)")) {
+    changeover_dcc(i, &DCC_SOCKET, 0);
+    dcc[i].u.other = NULL;
+    strcpy(dcc[i].nick, "*");
+    strncpyz(dcc[i].host, userhost, UHOSTLEN);
+    check_tcl_listen(dcc[idx].host, dcc[i].sock);
     return;
   }
 
@@ -1228,8 +1239,7 @@ static void dcc_telnet_hostresolved(int i)
   }
   if (s[0]) {
     putlog(LOG_MISC, "*", DCC_IDENTFAIL, dcc[i].host, s);
-    sprintf(s, "telnet@%s", dcc[i].host);
-    dcc_telnet_got_ident(i, s);
+    dcc_telnet_got_ident(i, userhost);
     return;
   }
   dcc[j].sock = sock;
