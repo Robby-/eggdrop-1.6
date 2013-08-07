@@ -268,28 +268,7 @@ static char *tcl_eggstr(ClientData cdata, Tcl_Interp *irp,
       Tcl_SetVar2(interp, name1, name2, st->str, TCL_GLOBAL_ONLY);
       return "read-only variable";
     }
-#ifdef USE_TCL_BYTE_ARRAYS
-#  undef malloc
-#  undef free
-    {
-      Tcl_Obj *obj;
-      unsigned char *bytes;
-      int len;
-
-      obj = Tcl_GetVar2Ex(interp, name1, name2, 0);
-      if (!obj)
-        return NULL;
-      len = 0;
-      bytes = Tcl_GetByteArrayFromObj(obj, &len);
-      if (!bytes)
-        return NULL;
-      s = malloc(len + 1);
-      egg_memcpy(s, bytes, len);
-      s[len] = 0;
-    }
-#else
     s = (char *) Tcl_GetVar2(interp, name1, name2, 0);
-#endif /* USE_TCL_BYTE_ARRAYS */
     if (s != NULL) {
       if (strlen(s) > abs(st->max))
         s[abs(st->max)] = 0;
@@ -309,9 +288,6 @@ static char *tcl_eggstr(ClientData cdata, Tcl_Interp *irp,
         if (st->str[strlen(st->str) - 1] != '/')
           strcat(st->str, "/");
       }
-#ifdef USE_TCL_BYTE_ARRAYS
-      free(s);
-#endif /* USE_TCL_BYTE_ARRAYS */
     }
     return NULL;
   }
@@ -320,66 +296,6 @@ static char *tcl_eggstr(ClientData cdata, Tcl_Interp *irp,
 /* Add/remove tcl commands
  */
 
-#ifdef USE_TCL_BYTE_ARRAYS
-static int utf_converter(ClientData cdata, Tcl_Interp *myinterp, int objc,
-                         Tcl_Obj *CONST objv[])
-{
-  char **strings, *byteptr;
-  int i, len, retval, diff;
-  void **callback_data;
-  Function func;
-  ClientData cd;
-
-  objc += 5;
-  strings = (char **) nmalloc(sizeof(char *) * objc);
-  egg_memset(strings, 0, sizeof(char *) * objc);
-  diff = utftot;
-  utftot += sizeof(char *) * objc;
-  objc -= 5;
-  for (i = 0; i < objc; i++) {
-    byteptr = (char *) Tcl_GetByteArrayFromObj(objv[i], &len);
-    strings[i] = (char *) nmalloc(len + 1);
-    utftot += len + 1;
-    strncpy(strings[i], byteptr, len);
-    strings[i][len] = 0;
-  }
-  callback_data = (void **) cdata;
-  func = (Function) callback_data[0];
-  cd = (ClientData) callback_data[1];
-  diff -= utftot;
-  retval = func(cd, myinterp, objc, strings);
-  for (i = 0; i < objc; i++)
-    nfree(strings[i]);
-  nfree(strings);
-  utftot += diff;
-  return retval;
-}
-
-void cmd_delete_callback(ClientData cdata)
-{
-  nfree(cdata);
-  clientdata_stuff -= sizeof(void *) * 2;
-}
-#endif /* USE_TCL_BYTE_ARRAYS */
-
-#ifdef USE_TCL_BYTE_ARRAYS
-void add_tcl_commands(tcl_cmds *table)
-{
-  void **cdata;
-
-  while (table->name) {
-    cdata = (void **) nmalloc(sizeof(void *) * 2);
-    clientdata_stuff += sizeof(void *) * 2;
-    cdata[0] = (void *)table->func;
-    cdata[1] = NULL;
-    Tcl_CreateObjCommand(interp, table->name, utf_converter, (ClientData) cdata,
-                         cmd_delete_callback);
-    table++;
-  }
-}
-
-#else /* USE_TCL_BYTE_ARRAYS */
-
 void add_tcl_commands(tcl_cmds *table)
 {
   int i;
@@ -387,25 +303,6 @@ void add_tcl_commands(tcl_cmds *table)
   for (i = 0; table[i].name; i++)
     Tcl_CreateCommand(interp, table[i].name, table[i].func, NULL, NULL);
 }
-#endif /* USE_TCL_BYTE_ARRAYS */
-
-#ifdef USE_TCL_BYTE_ARRAYS
-void add_cd_tcl_cmds(cd_tcl_cmd *table)
-{
-  void **cdata;
-
-  while (table->name) {
-    cdata = nmalloc(sizeof(void *) * 2);
-    clientdata_stuff += sizeof(void *) * 2;
-    cdata[0] = (void *)table->callback;
-    cdata[1] = table->cdata;
-    Tcl_CreateObjCommand(interp, table->name, utf_converter, (ClientData) cdata,
-                         cmd_delete_callback);
-    table++;
-  }
-}
-
-#else /* USE_TCL_BYTE_ARRAYS */
 
 void add_cd_tcl_cmds(cd_tcl_cmd *table)
 {
@@ -415,7 +312,6 @@ void add_cd_tcl_cmds(cd_tcl_cmd *table)
     table++;
   }
 }
-#endif /* USE_TCL_BYTE_ARRAYS */
 
 void rem_tcl_commands(tcl_cmds *table)
 {
@@ -433,7 +329,6 @@ void rem_cd_tcl_cmds(cd_tcl_cmd *table)
   }
 }
 
-#ifdef USE_TCL_OBJ
 void add_tcl_objcommands(tcl_cmds *table)
 {
   int i;
@@ -442,17 +337,12 @@ void add_tcl_objcommands(tcl_cmds *table)
     Tcl_CreateObjCommand(interp, table[i].name, table[i].func, (ClientData) 0,
                          NULL);
 }
-#endif
 
 /* Get the current tcl result string. */
 const char *tcl_resultstring()
 {
   const char *result;
-#ifdef USE_TCL_OBJ
   result = Tcl_GetStringResult(interp);
-#else
-  result = interp->result;
-#endif
   return result;
 }
 
@@ -466,11 +356,7 @@ int tcl_resultempty() {
 int tcl_resultint()
 {
   int result;
-#ifdef USE_TCL_OBJ
   if (Tcl_GetIntFromObj(NULL, Tcl_GetObjResult(interp), &result) != TCL_OK)
-#else
-  if (Tcl_GetInt(NULL, interp->result, &result) != TCL_OK)
-#endif
     result = 0;
   return result;
 }
@@ -570,23 +456,17 @@ static void init_traces()
  */
 void bgtclcallback(char *context, char *script, int code,
                    const char *result, int dofree) {
-#ifdef USE_TCL_ENCODING
   Tcl_DString dstr;
-#endif
 
   if (code == TCL_ERROR) {
-#ifdef USE_TCL_ENCODING
     /* properly convert string to system encoding. */
     Tcl_DStringInit(&dstr);
     Tcl_UtfToExternalDString(NULL, result, -1, &dstr);
     result = Tcl_DStringValue(&dstr);
-#endif
     putlog(LOG_MISC, "*", "Tcl error in script for '%s':", context);
     putlog(LOG_MISC, "*", "%s", result);
     Tcl_BackgroundError(interp);
-#ifdef USE_TCL_ENCODING
-  Tcl_DStringFree(&dstr);
-#endif
+    Tcl_DStringFree(&dstr);
   }
   if (dofree) {
     nfree(context);
@@ -750,15 +630,9 @@ void init_tcl(int argc, char **argv)
   Tcl_NotifierProcs notifierprocs;
 #endif /* REPLACE_NOTIFIER */
 
-#ifdef USE_TCL_ENCODING
   const char *encoding;
-  int i;
-  char *langEnv;
-#endif /* USE_TCL_ENCODING */
-#ifdef USE_TCL_PACKAGE
-  int j;
-  char pver[1024] = "";
-#endif /* USE_TCL_PACKAGE */
+  int i, j;
+  char *langEnv, pver[1024] = "";
 
 #ifdef REPLACE_NOTIFIER
   egg_bzero(&notifierprocs, sizeof(notifierprocs));
@@ -775,13 +649,11 @@ void init_tcl(int argc, char **argv)
 /* This must be done *BEFORE* Tcl_SetSystemEncoding(),
  * or Tcl_SetSystemEncoding() will cause a segfault.
  */
-#ifdef USE_TCL_FINDEXEC
   /* This is used for 'info nameofexecutable'.
    * The filename in argv[0] must exist in a directory listed in
    * the environment variable PATH for it to register anything.
    */
   Tcl_FindExecutable(argv[0]);
-#endif /* USE_TCL_FINDEXEC */
 
   /* Initialize the interpreter */
   interp = Tcl_CreateInterp();
@@ -799,7 +671,6 @@ void init_tcl(int argc, char **argv)
   Tcl_SetServiceMode(TCL_SERVICE_ALL);
 
 /* Code based on Tcl's TclpSetInitialEncodings() */
-#ifdef USE_TCL_ENCODING
   /* Determine the current encoding from the LC_* or LANG environment
    * variables.
    */
@@ -870,9 +741,7 @@ resetPath:
   /* Keep the iso8859-1 encoding preloaded.  The IO package uses it for
    * gets on a binary channel. */
   Tcl_GetEncoding(NULL, "iso8859-1");
-#endif /* USE_TCL_ENCODING */
 
-#ifdef USE_TCL_PACKAGE
   /* Add eggdrop to Tcl's package list */
   for (j = 0; j <= strlen(egg_version); j++) {
     if ((egg_version[j] == ' ') || (egg_version[j] == '+'))
@@ -880,7 +749,6 @@ resetPath:
     pver[strlen(pver)] = egg_version[j];
   }
   Tcl_PkgProvide(interp, "eggdrop", pver);
-#endif /* USE_TCL_PACKAGE */
 
   /* Initialize binds and traces */
   init_bind();
@@ -890,9 +758,7 @@ resetPath:
   add_tcl_commands(tcluser_cmds);
   add_tcl_commands(tcldcc_cmds);
   add_tcl_commands(tclmisc_cmds);
-#ifdef USE_TCL_OBJ
   add_tcl_objcommands(tclmisc_objcmds);
-#endif
   add_tcl_commands(tcldns_cmds);
 }
 
@@ -924,9 +790,7 @@ int readtclprog(char *fname)
 {
   int code;
   EGG_CONST char *result;
-#ifdef USE_TCL_ENCODING
   Tcl_DString dstr;
-#endif
 
   if (!file_readable(fname))
     return 0;
@@ -934,12 +798,10 @@ int readtclprog(char *fname)
   code = Tcl_EvalFile(interp, fname);
   result = Tcl_GetVar(interp, "errorInfo", TCL_GLOBAL_ONLY);
 
-#ifdef USE_TCL_ENCODING
   /* properly convert string to system encoding. */
   Tcl_DStringInit(&dstr);
   Tcl_UtfToExternalDString(NULL, result, -1, &dstr);
   result = Tcl_DStringValue(&dstr);
-#endif
 
   if (code != TCL_OK) {
     putlog(LOG_MISC, "*", "Tcl error in file '%s':", fname);
@@ -951,9 +813,7 @@ int readtclprog(char *fname)
     code = 1;
   }
 
-#ifdef USE_TCL_ENCODING
   Tcl_DStringFree(&dstr);
-#endif
 
   return code;
 }

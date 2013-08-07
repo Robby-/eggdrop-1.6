@@ -32,22 +32,6 @@
 
 #include "lush.h"
 
-#if ((TCL_MAJOR_VERSION > 7) || ((TCL_MAJOR_VERSION == 7) && (TCL_MINOR_VERSION >= 5)))
-#  define USE_TCL_EVENTS
-#  define USE_TCL_FINDEXEC
-#  define USE_TCL_PACKAGE
-#  define USE_TCL_VARARGS
-#endif
-
-#if (TCL_MAJOR_VERSION >= 8)
-#  define USE_TCL_OBJ
-#endif
-
-#if (((TCL_MAJOR_VERSION == 8) && (TCL_MINOR_VERSION >= 1)) || (TCL_MAJOR_VERSION > 8))
-#  define USE_TCL_BYTE_ARRAYS
-#  define USE_TCL_ENCODING
-#endif
-
 #if defined(HAVE_TCL_SETNOTIFIER) && defined(HAVE_TCL_GETTHREADDATA) && defined(HAVE_TCL_NOTIFIER_INIT)
 #  define REPLACE_NOTIFIER
 #endif
@@ -69,7 +53,7 @@
 #endif
 
 /* UGH! Why couldn't Tcl pick a standard? */
-#if defined(USE_TCL_VARARGS) && (defined(__STDC__) || defined(HAS_STDARG))
+#if defined(__STDC__) || defined(HAS_STDARG)
 #  ifdef HAVE_STDARG_H
 #    include <stdarg.h>
 #  endif

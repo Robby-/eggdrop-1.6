@@ -2193,9 +2193,7 @@ static void cmd_tcl(struct userrec *u, int idx, char *msg)
 {
   int code;
   char *result;
-#ifdef USE_TCL_ENCODING
   Tcl_DString dstr;
-#endif
 
   if (!(isowner(dcc[idx].nick)) && (must_be_owner)) {
     dprintf(idx, MISC_NOSUCHCMD);
@@ -2204,24 +2202,17 @@ static void cmd_tcl(struct userrec *u, int idx, char *msg)
   debug1("tcl: evaluate (.tcl): %s", msg);
   code = Tcl_GlobalEval(interp, msg);
 
-#ifdef USE_TCL_ENCODING
   /* properly convert string to system encoding. */
   Tcl_DStringInit(&dstr);
   Tcl_UtfToExternalDString(NULL, tcl_resultstring(), -1, &dstr);
   result = Tcl_DStringValue(&dstr);
-#else
-  /* use old pre-Tcl 8.1 way. */
-  result = tcl_resultstring();
-#endif
 
   if (code == TCL_OK)
     dumplots(idx, "Tcl: ", result);
   else
     dumplots(idx, "Tcl error: ", result);
 
-#ifdef USE_TCL_ENCODING
   Tcl_DStringFree(&dstr);
-#endif
 }
 
 /* Perform a 'set' command
@@ -2230,9 +2221,7 @@ static void cmd_set(struct userrec *u, int idx, char *msg)
 {
   int code;
   char s[512], *result;
-#ifdef USE_TCL_ENCODING
   Tcl_DString dstr;
-#endif
 
   if (!(isowner(dcc[idx].nick)) && (must_be_owner)) {
     dprintf(idx, MISC_NOSUCHCMD);
@@ -2249,15 +2238,10 @@ static void cmd_set(struct userrec *u, int idx, char *msg)
   strcpy(s + 4, msg);
   code = Tcl_Eval(interp, s);
 
-#ifdef USE_TCL_ENCODING
   /* properly convert string to system encoding. */
   Tcl_DStringInit(&dstr);
   Tcl_UtfToExternalDString(NULL, tcl_resultstring(), -1, &dstr);
   result = Tcl_DStringValue(&dstr);
-#else
-  /* use old pre-Tcl 8.1 way. */
-  result = tcl_resultstring();
-#endif
 
   if (code == TCL_OK) {
     if (!strchr(msg, ' '))
@@ -2267,9 +2251,7 @@ static void cmd_set(struct userrec *u, int idx, char *msg)
   } else
     dprintf(idx, "Error: %s\n", result);
 
-#ifdef USE_TCL_ENCODING
   Tcl_DStringFree(&dstr);
-#endif
 }
 
 static void cmd_module(struct userrec *u, int idx, char *par)

@@ -907,7 +907,6 @@ int mainloop(int toplevel)
     eggbusy = 1;
   }
 
-#ifdef USE_TCL_EVENTS
   if (!eggbusy) {
 /* Process all pending tcl events */
 
@@ -926,8 +925,6 @@ int mainloop(int toplevel)
     while (Tcl_DoOneEvent(TCL_DONT_WAIT | TCL_ALL_EVENTS))
       tclbusy = 1;
 #  endif /* REPLACE_NOTIFIER */
-
-#endif   /* USE_TCL_EVENTS   */
   }
 
   return (eggbusy || tclbusy);
