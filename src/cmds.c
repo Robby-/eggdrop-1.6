@@ -1911,6 +1911,9 @@ int stripmodes(char *s)
     case 'g':
       res |= STRIP_BELLS;
       break;
+    case 'o':
+      res |= STRIP_RESET;
+      break;
     case '*':
       res |= STRIP_ALL;
       break;
@@ -1935,6 +1938,8 @@ char *stripmasktype(int x)
     *p++ = 'a';
   if (x & STRIP_BELLS)
     *p++ = 'g';
+  if (x & STRIP_RESET)
+    *p++ = 'o';
   if (p == s)
     *p++ = '-';
   *p = 0;
@@ -1959,6 +1964,8 @@ static char *stripmaskname(int x)
     i += my_strcpy(s + i, "ansi, ");
   if (x & STRIP_BELLS)
     i += my_strcpy(s + i, "bells, ");
+  if (x & STRIP_RESET)
+    i += my_strcpy(s + i, "reset, ");
   if (!i)
     strcpy(s, "none");
   else

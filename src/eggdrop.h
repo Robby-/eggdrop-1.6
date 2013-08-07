@@ -533,6 +533,7 @@ struct dupwait_info {
 #define STRIP_UNDER  0x00008    /* remove underline codes               */
 #define STRIP_ANSI   0x00010    /* remove ALL ANSI codes                */
 #define STRIP_BELLS  0x00020    /* remove ctrl-g's                      */
+#define STRIP_RESET  0x00040    /* remove mirc ctrl+o                   */
 #define STRIP_ALL    0x0007F    /* remove every damn thing!             */
 
 /* For dcc bot links. */

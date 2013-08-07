@@ -760,6 +760,12 @@ void strip_mirc_codes(int flags, char *text)
         continue;
       }
       break;
+    case 017:                  /* Reset all control chars (mIRC ctrl+o) */
+      if (flags & STRIP_RESET) {
+        text++;
+        continue;
+      }
+      break;
     case 0x16:                 /* Reverse video */
       if (flags & STRIP_REV) {
         text++;

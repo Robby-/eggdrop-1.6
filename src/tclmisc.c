@@ -681,6 +681,12 @@ static int tcl_stripcodes STDVAR
     case 'u':
       flags |= STRIP_UNDER;
       break;
+    case 'o':
+      flags |= STRIP_RESET;
+      break;
+    case '*':
+      flags |= STRIP_ALL;
+      break;
     default:
       Tcl_AppendResult(irp, "Invalid strip-flags: ", argv[1], NULL);
       return TCL_ERROR;
