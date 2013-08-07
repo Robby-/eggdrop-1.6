@@ -1168,7 +1168,6 @@ static int got311(char *from, char *msg)
 static int got465(char *from, char *msg)
 {
   newsplit(&msg); /* 465 */
-  newsplit(&msg); /* nick */
 
   fixcolon(msg);
 
