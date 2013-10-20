@@ -481,7 +481,7 @@ void bgtclcallback(char *context, char *script, int code,
  * where it's safe to recurse eventually (vwait/update).
  */
 void do_tcl(char *context, char *script) {
-  do_tcl_async(context, script, bgtclcallback);
+  do_tcl_sync(context, script, bgtclcallback, 0);
 }
 
 /* Evaluates Tcl code.
