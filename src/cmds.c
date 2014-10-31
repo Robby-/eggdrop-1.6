@@ -2444,7 +2444,7 @@ static void cmd_mns_user(struct userrec *u, int idx, char *par)
     dprintf(idx, "You can't remove a permanent bot owner!\n");
     return;
   }
-  if ((u2->flags & USER_OWNER) && !(u->flags & USER_OWNER)) {
+  if ((u2->flags & USER_OWNER) && !isowner(u->handle)) {
     dprintf(idx, "You can't remove a bot owner!\n");
     return;
   }
