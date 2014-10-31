@@ -695,8 +695,10 @@ static int tcl_stripcodes STDVAR
       return TCL_ERROR;
     }
 
-  strip_mirc_codes(flags, argv[2]);
-  Tcl_AppendResult(irp, argv[2], NULL);
+  p = Tcl_Alloc(strlen(argv[2]) + 1);
+  strcpy(p, argv[2]);
+  strip_mirc_codes(flags, p);
+  Tcl_SetResult(irp, p, TCL_DYNAMIC);
   return TCL_OK;
 }
 
