@@ -1228,6 +1228,8 @@ static char *traced_serveraddress(ClientData cdata, Tcl_Interp *irp,
   if (flags & TCL_TRACE_UNSETS)
     Tcl_TraceVar(irp, name1, TCL_TRACE_READS | TCL_TRACE_WRITES |
                  TCL_TRACE_UNSETS, traced_serveraddress, cdata);
+  if (flags & TCL_TRACE_WRITES)
+    return "read-only variable";
   return NULL;
 }
 
@@ -1248,6 +1250,8 @@ static char *traced_server(ClientData cdata, Tcl_Interp *irp,
   if (flags & TCL_TRACE_UNSETS)
     Tcl_TraceVar(irp, name1, TCL_TRACE_READS | TCL_TRACE_WRITES |
                  TCL_TRACE_UNSETS, traced_server, cdata);
+  if (flags & TCL_TRACE_WRITES)
+    return "read-only variable";
   return NULL;
 }
 
@@ -1263,6 +1267,8 @@ static char *traced_botname(ClientData cdata, Tcl_Interp *irp,
   if (flags & TCL_TRACE_UNSETS)
     Tcl_TraceVar(irp, name1, TCL_TRACE_READS | TCL_TRACE_WRITES |
                  TCL_TRACE_UNSETS, traced_botname, cdata);
+  if (flags & TCL_TRACE_WRITES)
+    return "read-only variable";
   return NULL;
 }
 
