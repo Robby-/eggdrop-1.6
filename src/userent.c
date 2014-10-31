@@ -126,10 +126,6 @@ int def_set(struct userrec *u, struct user_entry *e, void *buf)
     int l = strlen(string);
     char *i;
 
-    if (l > 160)
-      l = 160;
-
-
     e->u.string = user_realloc(e->u.string, l + 1);
 
     strncpyz(e->u.string, string, l + 1);
