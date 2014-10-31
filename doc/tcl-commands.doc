@@ -333,13 +333,13 @@ marked with vertical bars (|) on the left.
     Returns: nothing
     Module: channels
 
-  stick <banmask> [channel]
+  stickban <banmask> [channel]
     Description: makes a ban sticky, or, if a channel is specified, then it
       is set sticky on that channel only.
     Returns: 1 on success; 0 otherwise
     Module: channels
 
-  unstick <banmask> [channel]
+  unstickban <banmask> [channel]
     Description: makes a ban no longer sticky, or, if a channel is
       specified, then it is unstuck on that channel only.
     Returns: 1 on success; 0 otherwise
