@@ -127,27 +127,31 @@ tclrecommendver="8.5.X"
 tclrecommendsite="ftp://tcl.activestate.com/pub/tcl/tcl8_5/"
 
 # Tcl library filename prefixes, suffixes, and search paths.
-tcllibnames="tcl8.5 tcl85 tcl8.4 tcl84 tcl8.3 tcl83 tcl8.2 tcl82"
+tcllibnames="tcl8.6 tcl86 tcl8.5 tcl85 tcl8.4 tcl84 tcl8.3 tcl83 tcl8.2 tcl82"
 
 tcllibextensions=".so .so.1 .so.1.0 .so.1.2 .dll .dylib .sl .a"
 
 tcllibpaths="$HOME/lib $HOME/tcl/lib \
              /usr/local/lib /usr/lib /lib /lib64 /usr/lib64 \
+             /usr/local/lib/tcl8.6 /usr/lib/tcl8.6 \
              /usr/local/lib/tcl8.5 /usr/lib/tcl8.5 \
              /usr/local/lib/tcl8.4 /usr/lib/tcl8.4 \
              /usr/local/lib/tcl8.3 /usr/lib/tcl8.3 \
              /usr/local/pkgs/tcl/lib /sys/lib /usr/pkg/lib \
-             /usr/i486-linuxaout/lib /beos/system/lib $HOME"
+             /usr/i486-linuxaout/lib /beos/system/lib \
+             /usr/lib/x86_64-linux-gnu $HOME"
 
 # Tcl header filenames and search paths.
 tclheadernames="tcl.h"
 tclheaderpaths="$HOME/include $HOME/tcl/include \
                 /usr/local/include /usr/include \
+                /usr/local/include/tcl8.6 /usr/include/tcl8.6 \
                 /usr/local/include/tcl8.5 /usr/include/tcl8.5 \
                 /usr/local/include/tcl8.4 /usr/include/tcl8.4 \
                 /usr/local/include/tcl8.3 /usr/include/tcl8.3 \
                 /usr/local/pkgs/tcl/include /sys/include \
-                /usr/pkg/lib /beos/system/include /beos/devel/include $HOME"
+                /usr/pkg/lib /beos/system/include /beos/devel/include \
+                $HOME"
 
 
 # We save the cache (if used) here to speed things up if we can't find Tcl.
